@@ -1,0 +1,74 @@
+<!--This page is for staff to view and add to inventory-->
+
+{% extends 'base.html' %}
+{% block head %}
+<style>
+    th {
+        text-align: left;
+    }
+    th, td {
+      border-bottom: 1px solid #ddd;
+    }
+    tr, th {
+        padding-right: 100px;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {background-color: #f2f2f2;}
+    tr:nth-child(odd) {background-color: white;}
+    .main {
+        height: 900px !important;
+        padding-left: 20px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+
+<div>
+<br>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Food Type</th>
+      </tr>
+    {% for i in range(a1 | length) %}
+    <tr>
+        <td>{{a1[i]}}</td>
+        <td>{{b1[i]}}</td> 
+        <td>{{c1[i]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+<div>
+<form method="POST">
+	<h2>What would you like to add to inventory?</h2><br>
+	{% if error != 'none' %}
+		<font color="red">{{error}}</font><br><br>
+	{% endif %}
+	Item:
+	<input name="item"/><br>
+    {% if not item %}
+		Please ensure that item is not empty.
+    {% endif %}
+    <br>
+	<br>Amount:
+	<input name="amount"/><br>
+	{% if not amount %}
+		Please ensure that amount is not empty
+	{% endif %}
+    <br>
+	<br><input type="submit" value="Add" name="add">
+    <br>
+	{% if msg != 'none' %}
+		{{msg}}
+	{% endif %}
+</form>
+
+</div>
+
+{% endblock %}

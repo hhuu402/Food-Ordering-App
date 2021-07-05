@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Diner Dash - id{% endblock %}
+{% block head %}
+    <style>
+        .confirm {
+            background-color: orange;
+            font-size: 20px;
+            color: white;
+            padding: 5px;
+            margin: 10px;
+            font-family: 'Cantarell', sans-serif;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+        .form-id {
+            margin-top: 30px;
+            display: flex;
+            display:-webkit-flex;
+            align-items: center;
+            font-family: 'Cantarell', sans-serif;
+            -webkit-align-items: center;
+            width: 100%;
+            height: 50px;
+            background-color: orange;
+            #border: 5px solid black;
+        }
+        .form-id div {
+            margin-left: 20px;
+            padding-right: 0px;
+            background-color: green;
+            color: white;
+            padding-left: 8px;
+        }
+        .form-id div > input {
+            padding-left: 10px;
+            width: 120px;
+            height: 20px;
+            background-color: white;
+        }
+        .form-id input {
+            margin-left: 10px;
+            width: 120px;
+            height: 27px;
+            background-color: white;
+        }
+    </style>
+{% endblock %}
+{% block end %}
+{% endblock %}
+{% block body %}
+    <form method="post" class="form-id">
+        <div>
+        {% if id == -1 %}
+        ID <input type="text" name="id" placeholder="order id">
+        {% else %}
+        ID <input type="text" name="id" placeholder="order id" value= {{id}}>
+        {% endif %}
+        </div>
+        <input type="submit" value="Check ID">
+    </form>
+    {% if error != '' %}
+            <font color="red">{{error}}</font>
+        {% endif %}
+        {% if order != '' %}
+            Your order status is: "{{order.status}}"
+            Your order is...<br>
+        <span style="white-space: pre-line">{{order}}</span><br><br>
+        {% endif %}
+{% endblock %}
+
+

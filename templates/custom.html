@@ -1,0 +1,94 @@
+<!-- needs to use inventory list and inventory -->
+<!-- try dropdown for wraps -->
+    <style>
+        .order {
+            background-color: orange;
+            font-size: 20px;
+            color: white;
+            padding: 5px;
+            margin: 10px;
+            font-family: 'Cantarell', sans-serif;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .button {
+            margin: auto;
+            width: 50%;
+            border: 3px solid mediumaquamarine;
+            padding: 10px;
+            background-color: orange;
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 3px;
+            font-family: 'Cantarell', sans-serif;
+            font-weight: bold;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+        .button:hover {
+            background-color: #ffcc00;
+            transition: background-color 0.3s, color 0.4s;
+        }
+
+        .confirm_order{
+            color: white;
+            background-color: #00ff00;
+            border: 3px solid mediumaquamarine;
+            font-size: 20px;
+            padding: 3px;
+            font-family: 'Cantarell', sans-serif;
+            font-weight: bold;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+        .confirm_order:hover{
+            background-color: #99ff33;
+            transition: background-color 0.3s, color 0.4s;
+        }
+
+    </style>
+{% extends 'base.html' %}
+
+{% block body %}
+<div>
+<!-- if wrap chosen -->
+    <form method="POST"> 
+            {% for error in errors %}
+                <font color="red">"{{error}}" "{{errors[error]}}"</font><br>
+            {% endfor %}
+
+		{% if empty == 'empty' %}
+			<font color="red">Cannot confirm an empty order</font>
+		{% endif %}
+        <p></p>
+	<div class="Order">
+		<h3>Your current order is:</h3>
+        <span style="white-space: pre-line">{{(temp_orders[(order|int)-1])|string}}</span><br>
+
+        Price: ${{price}}<br>
+	</div>
+        <div class="add_items">
+            <br>
+            {% if main == 'burger' %}
+                <a href= {{url_for("burger", main=main, order=order)}} class="button">ADD BURGER</a>
+            {% else %}
+                <a href= {{url_for("wrap", main=main, order=order)}} class="button">ADD WRAP</a>
+            {% endif %}
+            <a href= {{url_for("sides", main=main, order=order)}} class="button">ADD SIDES</a>
+            <a href= {{url_for("drinks", main=main, order=order)}} class="button">ADD DRINKS</a>
+            <a href= {{url_for("edit_order", main=main, order=order)}} class="button">EDIT ORDER</a>
+            <a href= {{url_for("confirm_order", main=main, order=order)}} class="confirm_order">CONFIRM ORDER</a>
+        </div>
+        
+
+
+{% endblock %}

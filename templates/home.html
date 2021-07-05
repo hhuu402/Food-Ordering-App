@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Diner Dash - Home{% endblock %}
+{% block head %}
+    <link href={{ url_for('static', filename='home.css') }}
+          rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Rock+Salt"  
+          rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Barrio" 
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" 
+          rel="stylesheet">
+{% endblock %}
+{% block end %}
+    <script src={{ url_for('static', filename='home.js') }}></script>
+{% endblock %}
+{% block body %}
+    <div class="text_prompt">
+    <h1> Choose a meal </h1>
+    </div>
+    <div class="flex-container">
+            <!-- Burger -->
+        <div class="sel-big">
+            <div class="aspect-ratio-1">
+                <div class="aspect-ratio-inside">
+                    <a href="" id="burgers">
+                        <div class="flex-centering">BURGERS</div>
+                        <img class="img-1" src= {{ url_for('static', filename='burger.jpeg') }}/>
+                    </a>
+                    <div class="flex-vertical">
+                        {% for key in wraps %}
+                        <form class="item top flex" action="{{ url_for(url_next) }}">
+                            <input name="meal_type" value="wrap" style="display: none">
+                            <img src= {{ url_for('static', filename= wraps[key][0]) }}/>
+                            <div class="prices flex-vertical">
+                                    {% if wraps[key][1] >= 0 and 
+                                          wraps[key][2] >= 0 %}
+                                      <font>S: ${{ wraps[key][1] }}</font>
+                                      <font>L: ${{ wraps[key][2] }}</font>
+                                  {% else %}
+                                      <font> ??? </font>
+                                  {% endif %}
+                            </div>
+                            <div class="flex-vertical right">
+                                <input name="meal_name" value="{{ key }}" style="display: none">
+                                <font class="Fname">{{ key }}</font>
+                                <div class="flex-container item_buttons">
+                                    {% if wraps[key][1] >= 0 and 
+                                          wraps[key][2] >= 0 %}
+                                    <button type="submit" name="size" value="small">Small</button>
+                                    <button type="submit" name="size" value="large">Large</button>
+                                    {% else %}
+                                    <button type="submit" name="size" value="none"
+                                    style="width: 200px">make!</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </form>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Wraps -->
+        <div class="sel-big" action="{{ url_for(url_next) }}">
+            <div class="aspect-ratio-1">
+                <div class="aspect-ratio-inside">
+                    <a href="" id="wraps">
+                        <div class="flex-centering">WRAPS</div>
+                        <img class="img-2" src= {{ url_for('static', filename='wrap.jpg') }}/>
+                    </a>
+                    <div class="flex-vertical">
+                        {% for key in burgers %}
+                        <form class="item top flex" action="{{ url_for(url_next) }}">
+                            <input name="meal_type" value="burger" style="display: none">
+                            <img src= {{ url_for('static', filename= burgers[key][0]) }}/>
+                            <div class="prices flex-vertical">
+                                {% if burgers[key][1] >= 0 and 
+                                      burgers[key][2] >= 0 %}
+                                    <font>S: ${{ burgers[key][1] }}</font>
+                                    <font>L: ${{ burgers[key][2] }}</font>
+                                {% else %}
+                                    <font> ??? </font>
+                                {% endif %}
+                            </div>
+                            <div class="flex-vertical right">
+                                <input name="meal_name" value="{{ key }}" style="display: none">
+                                <font class="Fname">{{ key }}</font>
+                                <div class="flex-container item_buttons">
+                                    {% if burgers[key][1] >= 0 and 
+                                        burgers[key][2] >= 0 %}
+                                    <button type="submit" name="size" value="small">Small</button>
+                                    <button type="submit" name="size" value="large">Large</button>
+                                    {% else %}
+                                    <button type="submit" name="size" value="none"
+                                    style="width: 200px">make!</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </form>
+                        {% endfor %}
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

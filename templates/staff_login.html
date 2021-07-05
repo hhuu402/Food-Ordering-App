@@ -1,0 +1,20 @@
+<!--This page is staff's login-->
+
+{% extends 'base.html' %}
+{% block body %}
+<div>
+	<h1>Login Page</h1>
+
+</div>
+<div>
+	<h2>Please input password:</h2>
+    <h3>(To Testers: Password is 123)</h3>
+	<form method="POST">
+		<input placeholder="Password..." type="Password" name=password><br>
+        {% if error == 'error' %}
+            BAD PASSWORD.<br>
+        {% endif %}
+		<input type="submit" value="Login!"/>
+	</form>
+</div>
+{% endblock %}

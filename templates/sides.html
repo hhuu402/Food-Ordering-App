@@ -1,0 +1,51 @@
+<!-- needs to use inventory list and inventory -->
+<!-- try dropdown for wraps -->
+    <style>
+        .body {
+            background-color: orange;
+            font-size: 20px;
+            color: white;
+            padding: 5px;
+            margin: 10px;
+            font-family: 'Cantarell', sans-serif;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+    </style>
+{% extends 'base.html' %}
+{% block body %}
+<div class="body">
+<!-- if wra[ chosen -->
+    <form method="POST"> 
+        <h2>SIDES</h2>
+        {% for food in food_list %}
+            {% if inventory.inv[food].type == 'sides' %}              
+                    <input name="{{food}}" value="{{request.form[food]}}"/>
+                    {{food}}
+                    <select name="{{food+'_size'}}">
+                        <option value="" selected="selected" disabled="disabled">Choose size</option>
+                    {% for size in sides_sizes %}
+                        {% if request.form[food+'_size'] == size %}
+                            <option value="{{size}}" selected="selected">{{size}} 
+                                    (${{inventory.inv[food].get_price(size)}})</option>
+                        {% else %}
+                            <option value="{{size}}">{{size}} (${{inventory.inv[food].get_price(size)}})</option>
+                   <!-- figure out a way of persisting this info below... -->
+                        {% endif %}   
+                    {% endfor %}                  
+                    </select>
+
+                    {% if food in errors %}
+                        <font color="red">{{errors[food]}}</font>
+                    {% endif %}<br>
+            {% endif %}  
+        {% endfor %}
+
+        <br>
+        {% include 'order_check.html' %}
+</div>
+{% endblock %}
+

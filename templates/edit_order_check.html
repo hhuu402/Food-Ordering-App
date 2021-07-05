@@ -1,0 +1,16 @@
+{% if check_order == 'check_price' %}
+    {% if price == '' %}
+        Order is empty
+    {% else %}
+    <h2>Price: ${{price}}</h2><br>
+    {% endif %}
+{% endif %}
+
+
+<button name="order" value="edit_order" class="button">CONFIRM CHANGES</button>
+<button name="order" value="get_price" class="button">GET PRICE</button>
+<button name="order" value="clear_order" class="button">ClEAR ORDER</button>
+<a href={{url_for('custom', main=main, order=order)}}
+                                 class="return">RETURN TO CUSTOM SELECT</button>
+
+

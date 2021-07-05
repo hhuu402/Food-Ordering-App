@@ -1,0 +1,82 @@
+<!-- needs to use inventory list and inventory -->
+<!-- try dropdown for wraps -->
+    <style>
+        .body {
+            background-color: orange;
+            font-size: 20px;
+            color: white;
+            padding: 5px;
+            margin: 10px;
+            font-family: 'Cantarell', sans-serif;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+    </style>
+{% extends 'base.html' %}
+{% block body %}
+<div class="body">
+    <form method="POST">
+        {% for item in items %}
+            {% if (order_tmp.get_type(item) == 'wrap_main') or
+                (order_tmp.get_type(item) == 'burger_main') or 
+                        (order_tmp.get_type(item) == 'main') %}
+            {{item}} <input name="{{'n-'+item}}" value="{{order_tmp.get_amount(item)}}"/><br>
+            {% endif %}
+            {% if 'n-'+item in errors %}
+                <font color="red">{{errors['n-'+item]}}</font><br>
+            {% endif %}
+        {% endfor %}
+        {% for item in items %}
+            {% if order_tmp.get_type(item) == 'sides' %}
+                {% for size in items[item] %}
+                    {% if size == 's' %}
+                        small {{item}} <input name="{{'s-'+item}}"
+                        value="{{order_tmp.get_amount(item, size)}}"/><br>
+                    {% elif size == 'm' %}
+                        medium {{item}} <input name="{{'m-'+item}}"
+                        value="{{order_tmp.get_amount(item, size)}}"/><br>
+                    {% elif size == 'l' %}
+                        large {{item}} <input name="{{'l-'+item}}"
+                        value="{{order_tmp.get_amount(item, size)}}"/><br>
+                    {% endif %}
+                    {% if size+'-'+item in errors %}
+                        <font color="red">{{errors[size+'-'+item]}}</font><br>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for item in items %}
+            {% if order_tmp.get_type(item) == 'drinks' %}
+                {% if items[item]|length == 0 %}
+                    {{item}} <input name="{{'n-'+item}}" 
+                    value="{{order_tmp.get_amount(item)}}"/><br>  
+                {% if 'n-'+item in errors %}
+                    <font color="red">{{errors['n-'+item]}}</font><br>
+                {% endif %}
+                {% else %}
+                    {% for size in items[item] %}
+                        {% if size == 's' %}
+                            small {{item}} <input name="{{'s-'+item}}"
+                            value="{{order_tmp.get_amount(item, size)}}"/><br>
+                        {% elif size == 'm' %}
+                            medium {{item}} <input name="{{'m-'+item}}"
+                            value="{{order_tmp.get_amount(item, size)}}"/><br>
+                        {% endif %}
+                        {% if size+'-'+item in errors %}
+                            <font color="red">{{errors[size+'-'+item]}}</font><br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <br>
+
+        {% include 'edit_order_check.html' %}
+
+</div>   
+{% endblock %}
+

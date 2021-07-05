@@ -1,0 +1,63 @@
+<!-- needs to use inventory list and inventory -->
+<!-- try dropdown for wraps -->
+    <style>
+        .body {
+            background-color: orange;
+            font-size: 20px;
+            color: white;
+            padding: 5px;
+            margin: 10px;
+            font-family: 'Cantarell', sans-serif;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+    </style>
+{% extends 'base.html' %}
+{% block body %}
+<div class="body">
+
+    <form method="POST"> 
+        <div>
+        <h2>Custom Wrap Select</h2>
+        <h3>Wrap</h3> 
+        {% for food in food_list %}
+            {% if inventory.inv[food].type == 'wrap_main' %}
+                {% if food in errors %}
+                    <input type="radio" name="wrap" value="{{food}}"/>{{food}} (${{inventory.inv[food].price}})
+                    <font color="red">{{errors[food]}}</font><br>
+                {% else %}
+                    {% if request.form['wrap'] == food %}
+                        <input type="radio" name="wrap" value="{{food}}" checked/>{{food}} (${{inventory.inv[food].price}})<br>
+                    {% else %}
+                        <input type="radio" name="wrap" value="{{food}}"/>{{food}} (${{inventory.inv[food].price}})<br>
+                    {% endif %}
+                {% endif %}
+            {% endif %} 
+        {% endfor %}
+        {% if check_wrap == False %}
+            <font color="red">Must choose a wrap</font><br>
+        {% endif %}
+        <h3>Add ons</h3>
+        {% for food in food_list %}
+            {% if inventory.inv[food].type == 'main' %}  
+                {% if food in errors %}
+                    <input name="{{food}}"/>
+                    {{food}} (${{inventory.inv[food].price}})
+                    <font color="red">{{errors[food]}}</font><br>  
+                {% else %}
+                    <input name="{{food}}" value="{{request.form[food]}}" />
+                    {{food}} (${{inventory.inv[food].price}})<br>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        
+        <br>
+        {% include 'main_order_check.html' %}
+        </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,36 @@
+<style>
+    .return{
+        color: white;
+        background-colour: orange;   
+    }
+    .button{
+        color: white;
+        background-color: orange;
+        font-size: 20px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        text-decoration: none;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+    .button:hover{
+        background-color: #ffcc00;
+        transition: background-color 0.3s, color 0.4s;
+        }
+    }
+
+</style>    
+{% if check_order == 'check_price' %}
+    {% if price == '' %}
+        Order is empty
+    {% else %}
+    <h2>Price: ${{price}}</h2><br>
+    {% endif %}
+{% endif %}
+
+<button name="order" value="add_items" class="button">ADD ITEMS</button>
+<button name="order" value="get_price" class="button">GET PRICE</button><br><br>
+<button name="order" value="update" class="button">UPDATE MAIN</button><br><br>
+<a href={{url_for('custom', main=main, order=order)}}
+                                 class="return">RETURN TO CUSTOM SELECT</button>
+

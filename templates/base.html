@@ -1,0 +1,37 @@
+<!-- MAKE SURE CSS IS SAFARI COMPATIABLE 
+     - Note to future self (Daniel Pham) -->
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% block head %}
+    {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet">
+    <link rel="stylesheet" 
+          href={{ url_for('static', filename='base.css') }} />
+</head>
+<!-- Please insert your function into the hrefs when you are done. -->
+<body>
+    <div class="navbar-bg">
+        <div class="navbar">
+            {% for key in nav_start %}
+            <a href="{{ url_for(nav_start[key]) }}">
+            {{ key.upper() }}
+            </a>
+            {% endfor %}
+            <div class="push"></div>
+            {% for key in nav_end %}
+            <a href="{{ url_for(nav_end[key]) }}">{{ key.upper() }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="main">
+        {% block body %}
+        {% endblock %}
+    </div>
+        {% block end %} {# For Javascript stuff...#}
+        {% endblock %}
+</body>
+</html>

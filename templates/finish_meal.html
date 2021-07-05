@@ -1,0 +1,98 @@
+<!-- needs to use inventory list and inventory -->
+<!-- try dropdown for wraps -->
+    <style>
+        .order {
+            font-family: 'Cantarell', sans-serif;
+            font-size: 20px;
+            color: white;
+            background-color: orange;
+            font-size: 20px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            text-decoration: none;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            margin: 5px;
+            padding: 5px;
+        
+        }
+        .button{
+            color: white;
+            background-color: orange;
+            font-size: 20px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            text-decoration: none;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            margin: 5px;
+            padding: 5px;
+        }
+        .button:hover{
+            background-color: #ffcc00;
+            transition: background-color 0.3s, color 0.4s;
+        }
+        .confirm{
+            color: white;
+            background-color: mediumaquamarine;
+            font-size: 20px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            text-decoration: none;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            margin: 5px;
+            padding: 5px;
+        }
+        .confirm:hover{
+            background-color: #ffcc00;
+            transition: background-color 0.3s, color 0.4s;
+        }
+        .cancel {
+            color: white;
+            font-size: 22px;
+            background-color: orange;
+            padding: 5px;
+            border-radius: 2px;
+            
+            font-family: 'Cantarell', sans-serif;
+
+        }
+        
+
+    </style>
+{% extends 'base.html' %}
+{% block body %}
+<div class="order">
+<!-- if wra[ chosen -->
+    <form method="POST"> 
+        <h2>Meal: "{{meal}}"<br>
+        Size: {{size}}</h2>
+        <h2>Please choose a drink:</h2>
+        {% if meal_check == 'drink' %}
+            <font color="red">You must choose a drink</font><br>
+        {% endif %}
+        {% for food in food_list %}
+            {% if inventory.inv[food].class_type() == "Milliliters_Can" or
+                  inventory.inv[food].class_type() == "Milliliters_Bottle" %}
+                {% if drink == food %}
+                    <input type="radio" name="drink" value="{{food}}" checked="checked">{{food}}<br>
+                {% else %}
+                    <input type="radio" name="drink" value="{{food}}">{{food}}<br>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if meal_check == 'price' %}
+            <br>Price: ${{price}}<br>
+        {% endif %}<br>
+</div>
+        <button name="order" value="order_meal" class="confirm">ORDER MEAL</button>
+        <button name="order" value="get_price" class="button">GET PRICE</button>
+        <a href= {{url_for("home")}} class="cancel">CANCEL</a>
+
+{% endblock %}
+
+
+
+
+if form[

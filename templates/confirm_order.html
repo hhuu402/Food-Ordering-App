@@ -1,0 +1,35 @@
+<style>
+    .confirm {
+        background-color: orange;
+        font-size: 20px;
+        color: white;
+        padding: 5px;
+        margin: 10px;
+        font-family: 'Cantarell', sans-serif;
+        font-weight: bold;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+</style>
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="confirm">
+    <h2>Your Order has been confirmed!<br>
+    Your Order ID is: {{order}}<br>
+    Your Order is:</h2>
+    {% if q.get_order(order).get_meal() != '' %}
+       <h2> "{{q.get_order(order).get_meal()}}"</h2>
+    {% endif %}
+	<span style="white-space: pre-line">{{q.get_order(order)}}</span><br><br>
+    Price: ${{price}}
+</div>
+
+
+
+
+
+{% endblock %}

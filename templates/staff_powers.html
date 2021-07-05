@@ -1,0 +1,40 @@
+<!--This page is for staff to 
+1. see list of orders
+2. check status of an order
+3. update the status of an order
+-->
+
+{% extends 'base.html' %}
+{% block body %}
+<div>
+    <!-- display list of orders -->
+    <h2>List of Orders:</h2><br>
+    
+    {% if orders|length == 0 %}    
+        Queue is empty
+    {% else %}
+        {% for x in orders %}
+			<br>{% if x.status != 'Complete' %}
+	        	Order ID {{orders.index(x)|int +1}}:<br>
+	        	<span style="white-space: pre-line">{{x}}</span>
+	        	Status: {{q.get_status( orders.index(x)|int+1 )}}<br>
+			{% endif %}
+        {% endfor %}
+    {% endif %}
+   
+    
+</div>
+	<!-- check status -->
+    <form method="POST">	
+        <!-- update status -->
+        <h2>Which order would you like to update?</h2><br>
+        <input placeholder="order ID" name="order_id"/>
+        <input type="submit" value="Confirm" name="confirm"/>
+        {% if error=='error' %}
+            <br>This order ID does not exist. You must enter a legitimate ID.<br>
+        {% elif error=='success' %}
+            <br><h2>Order has been updated to {{status}}.</h2></br>
+        {% endif %}
+	    </br>
+    </form>
+{% endblock %}
